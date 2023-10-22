@@ -20,14 +20,18 @@
 Vagrant.configure("2") do |config|
     config.vm.box = "generic/ubuntu1804"
   
-    config.vm.define "master" do |master|
+      config.vm.define "master" do |master|
         master.vm.network "private_network", type: "dhcp"  
         master.vm.hostname = "master"
         
       end
       master.vm.network :forwarded_port, guest: 22, host: 50021, auto_correct: true
     end
-  
+    
+    config.vm.define "slave", do |slave|
+      slave.vm.hostname = "slave"
+      slave.vm.network  "private_network", type: "dhcp"
+    end
     # config.vm.define "web" do |web_config|
     #   web_config.vm.provider "qemu" do |web|
     #     web.arch = "x86_64"
@@ -36,6 +40,6 @@ Vagrant.configure("2") do |config|
     #     web.net_device = "virtio-net-pci"
     #   end
     # end
-  end
+end
   
   
